@@ -1,0 +1,46 @@
+# Project: 基于多态的职工管理系统
+# Makefile created by Red Panda C++ 0.14.0
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+RES      = 基于多态的职工管理系统_private.res
+OBJ      = workerManager.o 职工管理系统.o employee.o manager.o boss.o $(RES)
+LINKOBJ  = workerManager.o 职工管理系统.o employee.o manager.o boss.o $(RES)
+CLEANOBJ  =  workerManager.o 职工管理系统.o employee.o manager.o boss.o $(RES)
+LIBS     = 
+INCS     =  
+CXXINCS  =  
+BIN      = 基于多态的职工管理系统.exe
+CXXFLAGS = $(CXXINCS)  -Wall -Wextra -g3 -pipe -D__DEBUG__
+CFLAGS   = $(INCS)  -Wall -Wextra -g3 -pipe -D__DEBUG__
+RM       = del /q /f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(CLEANOBJ) $(BIN) > NUL 2>&1
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+workerManager.o: workerManager.cpp employee.h workerManager.h worker.h manager.h boss.h
+	$(CPP) -c F:/ZMLX/Documents/projects/基于多态的职工管理系统/workerManager.cpp -o workerManager.o $(CXXFLAGS)  -finput-charset=gbk -fexec-charset=gbk
+
+职工管理系统.o: 职工管理系统.cpp employee.h workerManager.h worker.h manager.h boss.h
+	$(CPP) -c F:/ZMLX/Documents/projects/基于多态的职工管理系统/职工管理系统.cpp -o 职工管理系统.o $(CXXFLAGS)  -finput-charset=gbk -fexec-charset=gbk
+
+employee.o: employee.cpp employee.h worker.h
+	$(CPP) -c F:/ZMLX/Documents/projects/基于多态的职工管理系统/employee.cpp -o employee.o $(CXXFLAGS) 
+
+manager.o: manager.cpp worker.h manager.h
+	$(CPP) -c F:/ZMLX/Documents/projects/基于多态的职工管理系统/manager.cpp -o manager.o $(CXXFLAGS) 
+
+boss.o: boss.cpp worker.h boss.h
+	$(CPP) -c F:/ZMLX/Documents/projects/基于多态的职工管理系统/boss.cpp -o boss.o $(CXXFLAGS) 
+
+基于多态的职工管理系统_private.res: 基于多态的职工管理系统_private.rc 
+	$(WINDRES) -i 基于多态的职工管理系统_private.rc --input-format=rc -o 基于多态的职工管理系统_private.res -O coff 
+
