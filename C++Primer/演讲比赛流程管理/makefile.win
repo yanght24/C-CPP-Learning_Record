@@ -1,0 +1,37 @@
+# Project: 演讲比赛流程管理
+# Makefile created by Red Panda C++ 0.14.0
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+RES      = 演讲比赛流程管理_private.res
+OBJ      = 演讲比赛流程管理系统.o speechManager.o $(RES)
+LINKOBJ  = 演讲比赛流程管理系统.o speechManager.o $(RES)
+CLEANOBJ  =  演讲比赛流程管理系统.o speechManager.o $(RES)
+LIBS     =  -static
+INCS     =  
+CXXINCS  =  
+BIN      = 演讲比赛流程管理.exe
+CXXFLAGS = $(CXXINCS)  -O2 -g3 -pipe -D__DEBUG__
+CFLAGS   = $(INCS)  -O2 -g3 -pipe -D__DEBUG__
+RM       = del /q /f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(CLEANOBJ) $(BIN) > NUL 2>&1
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+演讲比赛流程管理系统.o: 演讲比赛流程管理系统.cpp speaker.h speechManager.h
+	$(CPP) -c D:/Project/Github/演讲比赛流程管理/演讲比赛流程管理系统.cpp -o 演讲比赛流程管理系统.o $(CXXFLAGS)  -finput-charset=gbk -fexec-charset=gbk
+
+speechManager.o: speechManager.cpp speaker.h speechManager.h
+	$(CPP) -c D:/Project/Github/演讲比赛流程管理/speechManager.cpp -o speechManager.o $(CXXFLAGS)  -finput-charset=gbk -fexec-charset=gbk
+
+演讲比赛流程管理_private.res: 演讲比赛流程管理_private.rc 
+	$(WINDRES) -i 演讲比赛流程管理_private.rc --input-format=rc -o 演讲比赛流程管理_private.res -O coff 
+
